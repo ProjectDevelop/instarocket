@@ -13,11 +13,11 @@ namespace instaRocket
         void logout();
 
         //Like
-        void likeHomePage(int count);
-        void likeprofile(string profileName);
-        void likeHashtag(string hashtagName);
-        void likeExplore(int count);
-        void LikeLocation(int count);
+        void likeHomePage(int count=0);
+        void likeprofile(string profileName,int count=0);
+        void likeHashtag(string hashtagName,int count=0);
+        void likeExplore(int count=0);
+        void LikeLocation(string location,int count=0);
     
     }
 }

@@ -17,20 +17,27 @@ namespace instaRocket
         public Form1()
         {
             InitializeComponent();
-
-           d= new instagram("bebekvecocuk08", "fc010318");
-          d.login();
-          
+            d = new instagram("denemem122","q1w2e3r4t5"); //new instagram("bebekvecocuk08", "fc010318");
+            d.login();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            d.LikeLocation(10);
+            //d.likeHomePage();
+            //d.likeprofile("prosto_dasha26092004");
+            //d.likeExplore(10);
+            //d.likeHashtag("istanbul");
+            //d.LikeLocation("istanbul");
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             d.CloseChrome();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
