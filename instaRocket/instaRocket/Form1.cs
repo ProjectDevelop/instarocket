@@ -18,14 +18,14 @@ namespace instaRocket
         {
             InitializeComponent();
 
-           d= new instagram("denemem122", "q1w2e3r4t5");
+           d= new instagram("bebekvecocuk08", "fc010318");
           d.login();
           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            d.likeprofile("sofiavergara");
+            d.LikeLocation(10);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

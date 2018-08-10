@@ -30,8 +30,9 @@ namespace instaRocket
            ChromeDriverService service = ChromeDriverService.CreateDefaultService();
            service.HideCommandPromptWindow = true;
            ChromeOptions options = new ChromeOptions();
-           /* options.AddArgument("--headless"); */ //hide chrome
-           browser = new ChromeDriver(service,options);
+            /* options.AddArgument("--headless"); */ //hide chrome
+            options.AddArguments("--lang=tr");
+            browser = new ChromeDriver(service,options);
            js = (IJavaScriptExecutor)browser;
            /////////////////////
 
@@ -53,6 +54,19 @@ namespace instaRocket
            browser.Navigate().GoToUrl(URL + "accounts/logout/");
            delay(1);
        }
+
+        public void LikeLocation(int count)
+        {
+            IWebElement searchbox;
+
+            browser.Navigate().GoToUrl(URL);
+            delay(1);
+           searchbox = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/input"));
+            searchbox.SendKeys("Bakırköy Sahil");
+            delay(1);
+            searchbox.SendKeys(Keys.Enter);
+            searchbox.SendKeys(Keys.Enter);
+        }
 
        public void likeHomePage(int count)
        {
@@ -115,13 +129,61 @@ namespace instaRocket
 
        public void likeHashtag(string hashtagName)
        {
-           throw new NotImplementedException();
-       }
+            browser.Navigate().GoToUrl(URL + "explore/tags/"+hashtagName+"/");
+            delay(3);
+            
+            browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/article/div[1]/div/div/div[1]/div[1]/a")).Click();
+
+            try
+            {
+                while (true)
+                {
+                    delay(3);
+                    if (browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/div[2]/section[1]/span[1]/button/span")).GetAttribute("aria-label").ToLower() == likeText)
+                    {
+                        browser.FindElement(By.ClassName("coreSpriteHeartOpen")).Click();
+                        delay(2);
+                    }
+                    browser.FindElements(By.XPath("/html/body/div[3]/div/div[1]/div/div/a")).Last().Click();
+
+                }
+                
+            }
+            catch
+            {
+
+            }
+        }
 
        public void likeExplore(int count)
        {
-           throw new NotImplementedException();
-       }
+            browser.Navigate().GoToUrl(URL + "explore/");
+            delay(1);
+            browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/div/article/div[1]/div/div[1]/div[1]/a")).Click();
+            ////*[@id="react-root"]/section/main/div/article/div[1]/div/div[1]/div[1]/a
+            int i = 0;
+            try
+            {
+                while (true)
+                {
+                    if (i >= count) break;
+                    i++;
+                    delay(3);
+                    if (browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/div[2]/section[1]/span[1]/button/span")).GetAttribute("aria-label").ToLower() == likeText)
+                    {
+                        browser.FindElement(By.ClassName("coreSpriteHeartOpen")).Click();
+                        delay(2);
+                    }
+                    browser.FindElements(By.XPath("/html/body/div[3]/div/div[1]/div/div/a")).Last().Click();
+
+                }
+
+            }
+            catch
+            {
+
+            }
+        }
 
        private void delay(int second)
        {
