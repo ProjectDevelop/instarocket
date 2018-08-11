@@ -18,6 +18,13 @@ namespace instaRocket
         void likeHashtag(string hashtagName,int count=0);
         void likeExplore(int count=0);
         void LikeLocation(string location,int count=0);
+
+        //Follow
+        void FollowProfileLastContentLike(string profileName, int count = 0);
+        void FollowProfileLastContentComment(string profileName, int count = 0);
+        void FollowHashtag(string hastagName, int count = 0);
+        void FollowExplore(int count = 0);
+        void Unfollow(int count = 0);
     
     }
 }

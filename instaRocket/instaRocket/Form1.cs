@@ -27,7 +27,8 @@ namespace instaRocket
             //d.likeprofile("prosto_dasha26092004");
             //d.likeExplore(10);
             //d.likeHashtag("istanbul");
-            //d.LikeLocation("istanbul");
+            //d.LikeLocation("avcılar");
+            d.Unfollow(10);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

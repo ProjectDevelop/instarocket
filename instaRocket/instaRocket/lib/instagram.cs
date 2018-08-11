@@ -13,7 +13,7 @@ namespace instaRocket
     class instagram : Iintagram
     {
        
-       private string User;
+       private string UserName;
        private string Password;
        private string URL = "https://www.instagram.com/";
        private string likeText = "beğen";
@@ -21,9 +21,9 @@ namespace instaRocket
        private IJavaScriptExecutor js;
        
 
-       public instagram(string User,string Password)
+       public instagram(string UserName, string Password)
        {
-           this.User = User;
+           this.UserName = UserName;
            this.Password = Password;
            
            ////////////browser and options////////////////
@@ -43,7 +43,7 @@ namespace instaRocket
        {
            browser.Navigate().GoToUrl(URL + "accounts/login/");
            delay(1);
-           browser.FindElementByName("username").SendKeys(User);
+           browser.FindElementByName("username").SendKeys(UserName);
            browser.FindElementByName("password").SendKeys(Password);
            browser.FindElementByTagName("button").Click();
            delay(2);
@@ -61,11 +61,11 @@ namespace instaRocket
 
             browser.Navigate().GoToUrl(URL);
             delay(2);
-            searchbox = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/input"));
+            searchbox = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/input"));//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]
             searchbox.SendKeys(location);
-            delay(1);
-            searchbox.SendKeys(Keys.Enter);
-            searchbox.SendKeys(Keys.Enter);
+            delay(2);
+           IWebElement location1 =  browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[contains(@href,'explore/locations/')]"));
+            location1.Click();
             delay(2);
             popUpContentLike(count);
         }
@@ -162,5 +162,45 @@ namespace instaRocket
        {
            browser.Quit();
        }
+
+        public void FollowProfileLastContentLike(string profileName, int count = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FollowProfileLastContentComment(string profileName, int count = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FollowHashtag(string hastagName, int count = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FollowExplore(int count = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Unfollow(int count = 0)
+        {
+            browser.Navigate().GoToUrl(URL + UserName);
+            delay(2);
+            browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/div/header/section/ul/li[3]/a")).Click();
+            delay(2);
+            js.ExecuteScript("document.getElementById(\"j6cq2\").scrollTop = 200;");
+            delay(2);
+            int i = 0;
+            while (true)
+            {
+                i++;
+                browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/div[2]/ul/div/li["+i+"]/div/div[2]")).Click();
+                delay(2);
+                browser.FindElement(By.XPath("/html/body/div[4]/div/div/div/div[3]/button[1]")).Click();
+                delay(2);
+                if (i == count && count != 0) break;
+            }
+        }
     }
 }
