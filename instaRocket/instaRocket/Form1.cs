@@ -28,7 +28,10 @@ namespace instaRocket
             //d.likeExplore(10);
             //d.likeHashtag("istanbul");
             //d.LikeLocation("avcılar");
-            d.Unfollow(10);
+            //d.Unfollow(12);
+            //d.FollowExplore();
+            //d.FollowHashtag("canada🇨🇦");
+            d.FollowProfileLastContentLike("hatshots");
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
