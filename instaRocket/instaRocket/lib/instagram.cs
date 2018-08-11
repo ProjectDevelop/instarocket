@@ -139,13 +139,52 @@ namespace instaRocket
         {
             browser.Navigate().GoToUrl(URL + profileName + "/");
             delay(2);
-            popUpContentLike(count, false, true);
+            browser.FindElement(By.XPath("//a[contains(@href,'/p/')]/parent::div")).Click();
+            //popUpContentLike(count, false, true);
+            delay(2);
+            browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/div[2]/section[2]/div/a")).Click();
+            delay(2);
+            try
+            {
+                int i = 0;
+                while (true)
+                {
+                    i++;
+                    browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/div[2]/div[2]/ul/div/li["+i+"]/div/div[2]")).Click();
+                    delay(2);
+                    if (i == count && count != 0) break;
+                    if (i % 5 == 0)
+                    {
+                        js.ExecuteScript("document.getElementsByClassName(\"wwxN2\")[0].scrollBy(0,document.getElementsByClassName(\"wwxN2\")[0].clientHeight+100)");
+                        delay(2);
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         public void FollowProfileLastContentComment(string profileName, int count = 0)
         {
             throw new NotImplementedException();
         }
+        public void FollowLocation(string location, int count = 0)
+        {
+            IWebElement searchbox;
+
+            browser.Navigate().GoToUrl(URL);
+            delay(2);
+            searchbox = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/input"));//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]
+            searchbox.SendKeys(location);
+            delay(2);
+            IWebElement location1 = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[contains(@href,'explore/locations/')]"));
+            location1.Click();
+            delay(2);
+            popUpContentLike(count,true,false);
+        }
+
 
         public void FollowHashtag(string hashtagName, int count = 0)
         {
@@ -239,6 +278,7 @@ namespace instaRocket
             browser.Quit();
         }
 
+    
         //////////////////////////////////////////////////////////
     }
 }

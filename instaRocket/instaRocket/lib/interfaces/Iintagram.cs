@@ -24,6 +24,7 @@ namespace instaRocket
         void FollowProfileLastContentComment(string profileName, int count = 0);
         void FollowHashtag(string hashtagName, int count = 0);
         void FollowExplore(int count = 0);
+        void FollowLocation(string location, int count = 0);
         void Unfollow(int count = 0);
     
     }

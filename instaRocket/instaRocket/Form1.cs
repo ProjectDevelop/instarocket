@@ -31,7 +31,8 @@ namespace instaRocket
             //d.Unfollow(12);
             //d.FollowExplore();
             //d.FollowHashtag("canada🇨🇦");
-            d.FollowProfileLastContentLike("hatshots");
+            d.FollowProfileLastContentLike("cdabreeze._",12);
+           // d.FollowLocation("avcılar sahil", 20);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
