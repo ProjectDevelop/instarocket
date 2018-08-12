@@ -229,6 +229,33 @@ namespace instaRocket
                 
             }
         }
+        /////////////////////////////////////////////////////////////////////////7
+        //Comment
+
+        public void CommentHomePage(string comment, int count = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommentHashtag(string comment, int count = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommentLocation(string comment, int count = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommentExplore(string comment, int count = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommentProfile(string comment, string profileName, int count = 0)
+        {
+            throw new NotImplementedException();
+        }
 
         //////////////////////////////////////////////////////////
 
@@ -278,7 +305,9 @@ namespace instaRocket
             browser.Quit();
         }
 
-    
+     
+
+
         //////////////////////////////////////////////////////////
     }
 }
