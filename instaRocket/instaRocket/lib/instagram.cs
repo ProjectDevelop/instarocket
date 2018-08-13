@@ -16,7 +16,7 @@ namespace instaRocket
        private string UserName;
        private string Password;
        private string URL = "https://www.instagram.com/";
-       private string likeText = "beğen",followText="takip et";
+       private string likeText = "Beğen", followText = "Takip Et", commentButton = "Yorum Yap", commentText = "Yorum ekle...";
        private ChromeDriver browser;
        private IJavaScriptExecutor js;
        
@@ -39,7 +39,7 @@ namespace instaRocket
            
        }
 
-       public void login()
+       public void Login()
        {
            browser.Navigate().GoToUrl(URL + "accounts/login/");
            delay(1);
@@ -47,9 +47,10 @@ namespace instaRocket
            browser.FindElementByName("password").SendKeys(Password);
            browser.FindElementByTagName("button").Click();
            delay(2);
+
        }
 
-       public void logout()
+       public void Logout()
        {
            browser.Navigate().GoToUrl(URL + "accounts/logout/");
            delay(1);
@@ -72,7 +73,7 @@ namespace instaRocket
             popUpContentLike(count);
         }
 
-       public void likeHomePage(int count=0)
+       public void LikeHomePage(int count=0)
        {
            browser.Navigate().GoToUrl(URL);
            int articleCounter = 0;
@@ -97,7 +98,7 @@ namespace instaRocket
                    height = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + articleCounter.ToString() + "]")).Size.Height + 200;
                }
 
-               if (likespan.GetAttribute("aria-label").ToLower() == likeText)
+               if (likespan.GetAttribute("aria-label").ToLower() == likeText.ToLower())
                {
                    likebutton.Click();
                    i++;
@@ -109,7 +110,7 @@ namespace instaRocket
            }
        }
 
-       public void likeprofile(string profileName, int count = 0)
+       public void Likeprofile(string profileName, int count = 0)
        {
            browser.Navigate().GoToUrl(URL +profileName +"/");
            delay(2);
@@ -117,14 +118,14 @@ namespace instaRocket
 
        }
 
-       public void likeHashtag(string hashtagName,int count=0)
+       public void LikeHashtag(string hashtagName,int count=0)
        {
             browser.Navigate().GoToUrl(URL + "explore/tags/"+hashtagName+"/");
             delay(2);
             popUpContentLike(count, false, true);
         }
 
-       public void likeExplore(int count)
+       public void LikeExplore(int count)
        {
             browser.Navigate().GoToUrl(URL + "explore/");
             delay(2);
@@ -168,20 +169,64 @@ namespace instaRocket
 
         public void FollowProfileLastContentComment(string profileName, int count = 0)
         {
-            throw new NotImplementedException();
+            browser.Navigate().GoToUrl(URL + profileName + "/");
+            delay(2);
+            try
+            {
+                browser.FindElement(By.XPath("//a[contains(@href,'/p/')]/parent::div")).Click();
+                delay(2);
+                while (true)
+                    if (browser.FindElements(By.XPath("//li[@class='lnrre']")).Count != 0)
+                    {
+                        browser.FindElement(By.XPath("//li[@class='lnrre']/child::button")).Click();
+                        delay(1);
+                        if (browser.FindElements(By.XPath("/html/body/div[3]/div/div[2]/div/article/div[2]/div[1]/ul/li")).Count >= count && count != 0)
+                            break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                List<string> AccountNames=new List<string>();
+
+                foreach (IWebElement element in browser.FindElements(By.XPath("/html/body/div[3]/div/div[2]/div/article/div[2]/div[1]/ul/li/div/div/div/a")))
+                {
+                    AccountNames.Add(element.Text.ToLower().Trim());
+                }
+                
+                foreach (string AccountName in AccountNames)
+                {
+                    browser.Navigate().GoToUrl(URL + AccountName + "/");
+                    delay(2);
+
+                    if (browser.FindElements(By.XPath("//button[text() = '"+followText+"']")).Count != 0)
+                    {
+                        browser.FindElement(By.XPath("//button[text() = '" + followText + "']")).Click();
+                    }
+                    delay(1);
+                    
+                }
+            }
+            catch 
+            {
+                
+                
+            }
+           
         }
+
         public void FollowLocation(string location, int count = 0)
         {
             IWebElement searchbox;
 
             browser.Navigate().GoToUrl(URL);
             delay(2);
-            searchbox = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/input"));//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]
+            searchbox = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/input"));
             searchbox.SendKeys(location);
             delay(2);
             IWebElement location1 = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[contains(@href,'explore/locations/')]"));
             location1.Click();
-            delay(2);
+            delay(3);
             popUpContentLike(count,true,false);
         }
 
@@ -229,33 +274,52 @@ namespace instaRocket
                 
             }
         }
-        /////////////////////////////////////////////////////////////////////////7
-        //Comment
 
-        public void CommentHomePage(string comment, int count = 0)
+        /////////////////////////////////////////////////////////////////////////
+
+        ///////////////////  Comment  ///////////////////
+
+        public void CommentHomePage(string[] comment, int count = 0)
         {
-            throw new NotImplementedException();
+            commentWrite("deneme");
         }
 
-        public void CommentHashtag(string comment, int count = 0)
+        public void CommentHashtag(string hashtagName,string[] comment, int count = 0)
         {
-            throw new NotImplementedException();
+            browser.Navigate().GoToUrl(URL + "explore/tags/" + hashtagName + "/");
+            delay(2);
+            popUpCommnet(comment, count);
         }
 
-        public void CommentLocation(string comment, int count = 0)
+        public void CommentLocation(string location, string[] comment, int count = 0)
         {
-            throw new NotImplementedException();
+            IWebElement searchbox;
+
+            browser.Navigate().GoToUrl(URL);
+            delay(2);
+            searchbox = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/input"));
+            searchbox.SendKeys(location);
+            delay(2);
+            IWebElement location1 = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[contains(@href,'explore/locations/')]"));
+            location1.Click();
+            delay(3);
+            popUpCommnet(comment, count);
         }
 
-        public void CommentExplore(string comment, int count = 0)
+        public void CommentExplore(string[] comment, int count = 0)
         {
-            throw new NotImplementedException();
+            browser.Navigate().GoToUrl(URL + "explore/");
+            delay(2);
+            popUpCommnet(comment, count);
         }
 
-        public void CommentProfile(string comment, string profileName, int count = 0)
+        public void CommentProfile(string profileName,string[] comment, int count = 0)
         {
-            throw new NotImplementedException();
+            browser.Navigate().GoToUrl(URL + profileName + "/");
+            delay(2);
+            popUpCommnet(comment, count);
         }
+
 
         //////////////////////////////////////////////////////////
 
@@ -273,14 +337,14 @@ namespace instaRocket
                     delay(2);
                     if (isLike)
                     {
-                        if (browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/div[2]/section[1]/span[1]/button/span")).GetAttribute("aria-label").ToLower() == likeText)
+                        if (browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/div[2]/section[1]/span[1]/button/span")).GetAttribute("aria-label").ToLower() == likeText.ToLower())
                         {
                             browser.FindElement(By.ClassName("coreSpriteHeartOpen")).Click();
                         }
                     }
                     if (isFollow)
                     {
-                        if (browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[2]/button")).Text.ToLower() == followText)
+                        if (browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[2]/button")).Text.ToLower() == followText.ToLower())
                         {
                             browser.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[2]/button")).Click();
                         }
@@ -300,12 +364,40 @@ namespace instaRocket
             System.Threading.Thread.Sleep(second * 1000);
         }
 
-        public void CloseChrome()
+        public void closeChrome()
         {
             browser.Quit();
         }
 
-     
+        private void commentWrite(string Text,int homePage = 1)
+        {
+            browser.FindElement(By.XPath("//article["+homePage.ToString()+"]/div[2]/section[1]/span[2]/button/span[@aria-label='" + commentButton + "']")).Click();
+            IWebElement textarea = browser.FindElement(By.XPath("//article[" + homePage.ToString() + "]/div[2]/section[3]/div/form/textarea[@aria-label='" + commentText + "']"));
+            textarea.SendKeys(Text);
+            //textarea.SendKeys(Keys.Enter);
+        }
+
+        private void popUpCommnet(string[] commentlist,int count)
+        {
+
+            int i = 1;
+            browser.FindElement(By.XPath("//a[contains(@href,'/p/')]/parent::div")).Click();
+            try
+            {
+
+                while (true)
+                {
+                    delay(2);
+                    commentWrite(commentlist[new Random().Next(0,commentlist.Length-1)]);
+                    delay(1);
+                    i++;
+                    browser.FindElements(By.XPath("/html/body/div[3]/div/div[1]/div/div/a")).Last().Click();
+                    if (i == count + 1 && i != 0) break;
+
+                }
+            }
+            catch { }
+        }
 
 
         //////////////////////////////////////////////////////////

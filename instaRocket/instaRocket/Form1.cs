@@ -1,4 +1,5 @@
-﻿using System;
+﻿using instaRocket.lib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,7 +19,8 @@ namespace instaRocket
         {
             InitializeComponent();
             d = new instagram("denemem122","q1w2e3r4t5"); //new instagram("bebekvecocuk08", "fc010318");
-            d.login();
+            d.Login();
+            writeAndRead.makeCommentList(new string[] { "yorum1", "yorum2", "yorum3", "yorum4" });
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -28,16 +30,23 @@ namespace instaRocket
             //d.likeExplore(10);
             //d.likeHashtag("istanbul");
             //d.LikeLocation("avcılar");
+
             //d.Unfollow(12);
             //d.FollowExplore();
             //d.FollowHashtag("canada🇨🇦");
-            d.FollowProfileLastContentLike("cdabreeze._",12);
-           // d.FollowLocation("avcılar sahil", 20);
+            //d.FollowProfileLastContentLike("cdabreeze._",12);
+            //d.FollowLocation("avcılar sahil", 20);
+            //d.FollowProfileLastContentComment("thef2",45);
+
+            //d.CommentHashtag("istanbul", writeAndRead.CommentList().ToArray(),0);
+            //d.CommentExplore(writeAndRead.CommentList().ToArray(), 0);
+            //d.CommentLocation("istanbul", writeAndRead.CommentList().ToArray(),0);
+            //d.CommentProfile("cdabreeze._", writeAndRead.CommentList().ToArray(), 0);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            d.CloseChrome();
+            d.closeChrome();
         }
 
         private void Form1_Load(object sender, EventArgs e)
