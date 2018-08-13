@@ -59,6 +59,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="lib\writeAndRead.cs" />
     <Compile Include="lib\interfaces\Iintagram.cs" />
     <Compile Include="lib\instagram.cs" />
     <Compile Include="Program.cs" />

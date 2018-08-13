@@ -9,14 +9,14 @@ namespace instaRocket
     interface Iintagram
     {
         //account control
-        void login();
-        void logout();
+        void Login();
+        void Logout();
 
         //Like
-        void likeHomePage(int count=0);
-        void likeprofile(string profileName,int count=0);
-        void likeHashtag(string hashtagName,int count=0);
-        void likeExplore(int count=0);
+        void LikeHomePage(int count=0);
+        void Likeprofile(string profileName,int count=0);
+        void LikeHashtag(string hashtagName,int count=0);
+        void LikeExplore(int count=0);
         void LikeLocation(string location,int count=0);
 
         //Follow
@@ -28,11 +28,11 @@ namespace instaRocket
         void Unfollow(int count = 0);
 
         //Comment
-        void CommentHomePage(string comment,int count = 0);
-        void CommentHashtag(string comment, int count = 0);
-        void CommentLocation(string comment, int count = 0);
-        void CommentExplore(string comment, int count = 0);
-        void CommentProfile(string comment, string profileName, int count = 0);
+        void CommentHomePage(string[] comment,int count = 0);
+        void CommentHashtag(string hashtagName, string[] comment, int count = 0);
+        void CommentLocation(string location,string[] comment, int count = 0);
+        void CommentExplore(string[] comment, int count = 0);
+        void CommentProfile(string profileName,string[] comment, int count = 0);
 
         
     
