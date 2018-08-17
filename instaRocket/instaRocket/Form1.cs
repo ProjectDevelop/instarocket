@@ -25,10 +25,9 @@ namespace instaRocket
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //d.likeHomePage();
-            //d.likeprofile("prosto_dasha26092004");
-            //d.likeExplore(10);
-            //d.likeHashtag("istanbul");
+            //d.Likeprofile("prosto_dasha26092004");
+            //d.LikeExplore(10);
+            //d.LikeHashtag("istanbul");
             //d.LikeLocation("avcılar");
 
             //d.Unfollow(12);
@@ -37,7 +36,8 @@ namespace instaRocket
             //d.FollowProfileLastContentLike("cdabreeze._",12);
             //d.FollowLocation("avcılar sahil", 20);
             //d.FollowProfileLastContentComment("thef2",45);
-
+            
+            //d.CommentHomePage(writeAndRead.CommentList().ToArray());
             //d.CommentHashtag("istanbul", writeAndRead.CommentList().ToArray(),0);
             //d.CommentExplore(writeAndRead.CommentList().ToArray(), 0);
             //d.CommentLocation("istanbul", writeAndRead.CommentList().ToArray(),0);

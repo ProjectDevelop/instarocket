@@ -76,36 +76,43 @@ namespace instaRocket
        public void LikeHomePage(int count=0)
        {
            browser.Navigate().GoToUrl(URL);
-           int articleCounter = 0;
-           IWebElement likebutton,likespan;
+
+           IWebElement[] articles;
+           IWebElement likespan;
            int i = 1;
+           delay(3);
+           int hight=0;
+           js.ExecuteScript("window.scrollBy(0,200);");
            while(true)
            {
                delay(3);
-               if (articleCounter < 8) articleCounter++;
-               int height;
                try
                {
-                   likebutton = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + articleCounter.ToString() + "]/div[2]/section[1]/span[1]/button"));
-                   likespan = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + articleCounter.ToString() + "]/div[2]/section[1]/span[1]/button/span"));
-                   height = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + articleCounter.ToString() + "]")).Size.Height + 200;
+                        
+                   articles = browser.FindElements(By.XPath("//*[@id=\"react-root\"]/section/main/section/div/div[1]/div/article")).ToArray();
+                   int j=1;
+                   foreach(IWebElement article in articles)
+                   {
+                       likespan = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + j.ToString() + "]/div[2]/section[1]/span[1]/button/span"));
+                       hight += article.Size.Height + 60;
+                       if (likespan.GetAttribute("aria-label").ToLower() == likeText.ToLower())
+                       {
+                           browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + j.ToString() + "]/div[2]/section[1]/span[1]/button")).Click();
+                           i++;
+                           break;
+                       }
+                       j++;
+                   }
+                   j = 1;
+
+                   js.ExecuteScript("window.(0,"+hight+");");
+                   hight=0;
+                   if (i == count + 1 && i != 0) break;
                }
                catch 
                {
-                   articleCounter--;
-                   likebutton = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + articleCounter.ToString() + "]/div[2]/section[1]/span[1]/button"));
-                   likespan = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + articleCounter.ToString() + "]/div[2]/section[1]/span[1]/button/span"));
-                   height = browser.FindElement(By.XPath("//*[@id=\"react-root\"]/section/main/section/div[1]/div[1]/div/article[" + articleCounter.ToString() + "]")).Size.Height + 200;
-               }
 
-               if (likespan.GetAttribute("aria-label").ToLower() == likeText.ToLower())
-               {
-                   likebutton.Click();
-                   i++;
-               }
-               if (i == count+1 && i !=0 ) break;
-               
-               js.ExecuteScript("window.scrollBy(0," + height.ToString()+ ")");
+               }   
 
            }
        }
@@ -281,6 +288,8 @@ namespace instaRocket
 
         public void CommentHomePage(string[] comment, int count = 0)
         {
+            browser.Navigate().GoToUrl(URL);
+
             commentWrite("deneme");
         }
 
