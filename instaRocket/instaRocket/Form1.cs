@@ -25,6 +25,7 @@ namespace instaRocket
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //d.LikeHomePage();
             //d.Likeprofile("prosto_dasha26092004");
             //d.LikeExplore(10);
             //d.LikeHashtag("istanbul");
