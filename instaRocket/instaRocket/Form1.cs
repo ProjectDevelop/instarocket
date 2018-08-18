@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace instaRocket
 {
-    public partial class Form1 : Form
+    public partial class Form1 : MaterialSkin.Controls.MaterialForm
     {
         instagram d;
         public Form1()
@@ -23,7 +23,7 @@ namespace instaRocket
             writeAndRead.makeCommentList(new string[] { "yorum1", "yorum2", "yorum3", "yorum4" });
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void materialFlatButton1_Click(object sender, EventArgs e)
         {
             //d.LikeHomePage();
             //d.Likeprofile("prosto_dasha26092004");
@@ -37,7 +37,7 @@ namespace instaRocket
             //d.FollowProfileLastContentLike("cdabreeze._",12);
             //d.FollowLocation("avcılar sahil", 20);
             //d.FollowProfileLastContentComment("thef2",45);
-            
+
             //d.CommentHomePage(writeAndRead.CommentList().ToArray());
             //d.CommentHashtag("istanbul", writeAndRead.CommentList().ToArray(),0);
             //d.CommentExplore(writeAndRead.CommentList().ToArray(), 0);
@@ -50,9 +50,5 @@ namespace instaRocket
             d.closeChrome();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
